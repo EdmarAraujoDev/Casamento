@@ -37,14 +37,9 @@ const Countdown = ({ targetDate }) => {
 
   const TimeUnit = ({ value, label }) => (
     <div className="countdown-unit">
-      <motion.div 
-        key={value}
-        initial={{ y: 10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="countdown-value"
-      >
+      <div className="countdown-value">
         {String(value).padStart(2, '0')}
-      </motion.div>
+      </div>
       <div className="countdown-label">{label}</div>
     </div>
   );
