@@ -23,17 +23,18 @@ const RSVP = () => {
     }
 
     try {
+      // Busca exata pelo nome (sem %) ou busca pelo código do convite
       const { data, error: fetchError } = await supabase
         .from('convidados')
         .select('*')
-        .ilike('nome', `%${name.trim()}%`);
+        .or(`nome.eq.${name.trim()},codigo.eq.${name.trim().toUpperCase()}`);
 
       if (data && data.length > 0) {
         setGuestInfo(data[0]);
         setStep(2);
         setError('');
       } else {
-        setError('Desculpe, não conseguimos encontrar este nome na lista de convidados.');
+        setError('Convite não encontrado. Certifique-se de digitar o nome exatamente como no convite ou use seu código de 4 letras.');
       }
     } catch (err) {
       setError('Erro ao conectar ao banco.');
@@ -79,14 +80,14 @@ const RSVP = () => {
                 exit={{ opacity: 0, x: 20 }}
                 className="rsvp-step"
               >
-                <p className="rsvp-text">Por favor, digite seu nome exatamente como está no convite para acessar sua área exclusiva.</p>
+                <p className="rsvp-text">Para sua segurança, digite seu <strong>Nome Completo</strong> exatamente como no convite ou o seu <strong>Código de 4 letras</strong>.</p>
                 
                 <form onSubmit={handleSearch} className="rsvp-form">
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Seu nome"
+                    placeholder="Nome Completo ou Código"
                     className="rsvp-input"
                   />
                   <button type="submit" className="btn-primary" style={{marginTop: '1rem', width: '100%'}}>

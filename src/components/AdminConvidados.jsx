@@ -93,15 +93,19 @@ const AdminConvidados = () => {
           <thead>
             <tr>
               <th>Nome</th>
+              <th>Código</th>
+              <th>Categoria</th>
               <th>Status</th>
-              <th>Acompanhantes Extra</th>
-              <th>Mensagem do Convite</th>
+              <th>Acomp.</th>
+              <th>Mensagem</th>
             </tr>
           </thead>
           <tbody>
             {convidados.map((convidado) => (
               <tr key={convidado.id}>
                 <td className="font-bold">{convidado.nome}</td>
+                <td className="text-code">{convidado.codigo || '-'}</td>
+                <td className="text-sm">{convidado.tipo}</td>
                 <td>
                   {convidado.confirmado === true && (
                     <span className="status-badge status-yes"><CheckCircle2 size={16} /> Confirmado</span>

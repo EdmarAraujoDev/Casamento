@@ -12,13 +12,14 @@ function App() {
   const path = window.location.pathname;
   const queryParams = new URLSearchParams(window.location.search);
   const isTestToday = queryParams.get('hoje') === 'true';
+  const isAdmin = queryParams.get('admin') === 'true';
   const [showFullSite, setShowFullSite] = React.useState(false);
 
   const WEDDING_DATE = "2026-09-14";
   const today = new Date().toISOString().split('T')[0];
   const isWeddingDay = today === WEDDING_DATE || isTestToday;
 
-  if (path === '/admin-convidados') {
+  if (isAdmin) {
     return <AdminConvidados />;
   }
 

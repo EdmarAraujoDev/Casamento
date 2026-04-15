@@ -70,9 +70,25 @@
 
 .admin-table-wrapper {
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(197, 168, 128, 0.2);
+  border-radius: 4px;
   overflow-x: auto;
+}
+
+.text-code {
+  font-family: monospace;
+  background: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: var(--color-gold);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1024px) {
+  .admin-stats {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .admin-table {
