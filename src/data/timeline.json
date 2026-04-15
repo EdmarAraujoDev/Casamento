@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "date": "2018",
+    "title": "Como tudo começou",
+    "description": "Nossos olhares se cruzaram em um dia que parecia comum, mas que mudaria nossas vidas para sempre.",
+    "image": "/gallery_1.png"
+  },
+  {
+    "id": 2,
+    "date": "2020",
+    "title": "O primeiro 'Eu te amo'",
+    "description": "Descobrimos que a vida ficava muito melhor quando compartilhada.",
+    "image": "/hero_couple.png"
+  },
+  {
+    "id": 3,
+    "date": "2023",
+    "title": "O pedido",
+    "description": "Com os corações acelerados e os olhos cheios de lágrimas, dissemos sim ao para sempre.",
+    "image": "/gallery_1.png"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "João",
+    "status": "pending",
+    "message": "João, sua presença vai deixar nosso dia ainda mais especial ❤️"
+  },
+  {
+    "id": 2,
+    "name": "Maria",
+    "status": "pending",
+    "message": "Maria, já estamos ansiosos para celebrar com você!"
+  },
+  {
+    "id": 3,
+    "name": "Carlos",
+    "status": "pending",
+    "message": "Carlos, sem você a festa não seria completa!"
+  }
+]
