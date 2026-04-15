@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Volume2, VolumeX, ChevronDown } from 'lucide-react';
+import Countdown from './Countdown';
 import './HeroSection.css';
 
 const HeroSection = () => {
@@ -73,8 +74,11 @@ const HeroSection = () => {
           y: { type: "spring", stiffness: 50, damping: 20 }
         }}
       >
-        <span className="hero-date">14 de Setembro de 2026</span>
-        <h1 className="hero-title">Isabela & Edmar</h1>
+        <div className="hero-name-wrapper">
+          <div className="hero-name-backdrop"></div>
+          <h1 className="hero-title">Isabela & Edmar</h1>
+        </div>
+        <Countdown targetDate="2026-09-14T16:00:00" />
         <p className="hero-subtitle">Celebre esse momento conosco</p>
         
         <motion.button 

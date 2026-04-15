@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, CheckCircle2, XCircle } from 'lucide-react';
+import { Heart, CheckCircle2, XCircle, Star } from 'lucide-react';
 import { supabase } from '../supabaseClient';
+import AreaPadrinhos from './AreaPadrinhos';
 import './RSVP.css';
 
 const RSVP = () => {
@@ -10,6 +11,7 @@ const RSVP = () => {
   const [error, setError] = useState('');
   const [step, setStep] = useState(1); // 1: busca, 2: achado e opção, 3: confirmado/recusado
   const [acompanhantes, setAcompanhantes] = useState(0);
+  const [showPadrinhos, setShowPadrinhos] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -21,14 +23,13 @@ const RSVP = () => {
     }
 
     try {
-      // Fazendo a busca no banco de dados na tabela 'convidados'
       const { data, error: fetchError } = await supabase
         .from('convidados')
         .select('*')
         .ilike('nome', `%${name.trim()}%`);
 
       if (data && data.length > 0) {
-        setGuestInfo(data[0]); // Seleciona o primeiro que bater com o nome
+        setGuestInfo(data[0]);
         setStep(2);
         setError('');
       } else {
@@ -48,9 +49,14 @@ const RSVP = () => {
           acompanhantes: status === 'yes' ? acompanhantes : 0
         })
         .eq('id', guestInfo.id);
+      
+      setGuestInfo(prev => ({ ...prev, confirmado: status === 'yes' }));
     }
     setStep(3);
   };
+
+  const isPadrinho = guestInfo?.tipo?.toLowerCase().includes('padrinho') || 
+                    guestInfo?.tipo?.toLowerCase().includes('madrinha');
 
   return (
     <section id="rsvp" className="section bg-sand rsvp-section">
@@ -146,36 +152,51 @@ const RSVP = () => {
                   )}
                 </motion.div>
                 <h3 className="success-title">
-                  {guestInfo.confirmado ? "Obrigado por confirmar!" : "Sentiremos sua falta!"}
+                  {guestInfo.confirmado ? "Resposta Recebida!" : "Sentiremos sua falta!"}
                 </h3>
                 
-                {/* MENSAGEM PERSONALIZADA */}
-                <div className="personalized-message" style={{ margin: '1.5rem 0', padding: '1.5rem', backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', fontStyle: 'italic' }}>
-                  {guestInfo.confirmado ? (
-                    <p>
-                      "{guestInfo.nome.split(' ')[0]}, estamos imensamente felizes de saber que você estará com a gente! 
-                      Sua presença tornará o nosso dia muito mais especial e inesquecível. 
-                      Prepare-se para celebrar muito o nosso amor. Nos vemos lá!"
-                    </p>
-                  ) : (
-                    <p>
-                      "Poxa, {guestInfo.nome.split(' ')[0]}... Estamos tristes que não poderá comparecer, 
-                      mas entendemos perfeitamente. Agradecemos o carinho de nos avisar e a sua energia boa, 
-                      mesmo de longe, fará a diferença no nosso dia. Um grande abraço!"
-                    </p>
-                  )}
+                <div className="personalized-message">
+                  <p>"{guestInfo.mensagem}"</p>
                 </div>
 
-                <p className="success-subtext" style={{ fontSize: '0.85rem' }}>
-                  Sua resposta foi registrada com sucesso na nossa lista oficial.
+                {guestInfo.confirmado && isPadrinho && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    style={{ marginTop: '1rem', width: '100%' }}
+                  >
+                    <button 
+                      onClick={() => setShowPadrinhos(true)} 
+                      className="btn-primary" 
+                      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
+                    >
+                      <Star size={20} fill="currentColor" />
+                      Área Exclusiva dos Padrinhos
+                    </button>
+                  </motion.div>
+                )}
+
+                <p className="success-subtext">
+                  Suas preferências foram registradas com sucesso.
                 </p>
               </motion.div>
             )}
           </AnimatePresence>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {showPadrinhos && (
+          <AreaPadrinhos 
+            guestInfo={guestInfo} 
+            onClose={() => setShowPadrinhos(false)} 
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 };
 
 export default RSVP;
+

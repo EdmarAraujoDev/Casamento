@@ -127,8 +127,30 @@
   letter-spacing: 1px;
 }
 
+.personalized-message {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border-left: 2px solid var(--color-gold);
+  text-align: left;
+}
+
+.personalized-message p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  opacity: 0.9;
+}
+
 @media (max-width: 768px) {
   .rsvp-container {
     padding: 3rem 1.5rem;
+  }
+  .personalized-message {
+    padding: 1.5rem;
   }
 }

@@ -129,6 +129,35 @@
   font-weight: 500;
 }
 
+.pix-gratitude-msg {
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.gratitude-content {
+  background: rgba(197, 168, 128, 0.08);
+  border: 1px solid rgba(197, 168, 128, 0.3);
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+.gratitude-content p {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.gratitude-content p:last-child {
+  margin-bottom: 0;
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-gold);
+}
+
 @media (max-width: 768px) {
   .pix-direct-card {
     padding: 3rem 1.5rem;

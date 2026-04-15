@@ -66,13 +66,43 @@
   background-color: var(--color-gold);
 }
 
+.hero-name-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 2rem 4rem;
+  margin-bottom: 3rem;
+}
+
+.hero-name-backdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%;
+  height: 140%;
+  background-image: url('../couple_prewedding_hero_1776268359473.png'); /* Caminho será ajustado se necessário */
+  background-size: cover;
+  background-position: center;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  opacity: 0.25;
+  filter: blur(15px);
+  z-index: -1;
+  animation: organic-pulse 10s infinite alternate;
+}
+
+@keyframes organic-pulse {
+  0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(-50%, -50%) scale(1); }
+  100% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; transform: translate(-50%, -50%) scale(1.1); }
+}
+
 .hero-title {
   font-size: 6rem;
-  margin-bottom: 0px;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  margin: 0;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.8);
   font-family: var(--font-serif);
   font-weight: 400;
   letter-spacing: -1px;
+  position: relative;
 }
 
 .hero-subtitle {

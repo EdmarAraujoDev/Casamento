@@ -1,0 +1,228 @@
+.day-of-container {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  padding: 4rem 2rem;
+  font-family: var(--font-sans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Noise texture for premium feel */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+.day-of-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.day-of-tag {
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.day-of-title {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  color: var(--color-text);
+}
+
+.day-of-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.day-of-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1px;
+  border: 1px solid rgba(197, 168, 128, 0.2);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+}
+
+.main-card {
+  grid-column: span 2;
+  border-top: 4px solid var(--color-gold);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.card-header h2 {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.mini-map-container {
+  margin-bottom: 2rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.day-of-btn {
+  display: block;
+  text-align: center;
+  padding: 1.2rem;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  margin-top: auto;
+}
+
+.day-of-btn.primary {
+  background-color: var(--color-gold);
+  color: white;
+}
+
+.day-of-btn.primary:hover {
+  background-color: var(--color-text);
+}
+
+.day-of-btn.outline {
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+}
+
+.day-of-btn.outline:hover {
+  background-color: var(--color-gold);
+  color: white;
+}
+
+.timeline-mini {
+  list-style: none;
+  padding: 0;
+}
+
+.timeline-mini li {
+  padding: 1rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  gap: 20px;
+  font-size: 1.1rem;
+}
+
+.timeline-mini li span {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+.day-of-footer {
+  margin-top: 5rem;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--color-gold);
+  max-width: 500px;
+}
+
+.day-of-pix-box {
+  background: var(--color-sand);
+  padding: 1.5rem;
+  border: 1px dashed var(--color-gold);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.day-of-pix-box:hover {
+  background: white;
+  border-style: solid;
+  box-shadow: 0 5px 15px rgba(197, 168, 128, 0.2);
+}
+
+.pix-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+
+.pix-value {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--color-text);
+  word-break: break-all;
+}
+
+.pix-copy-indicator {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.7rem;
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.back-to-site-btn {
+  margin-top: 2rem;
+  background: none;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 1rem 2rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.back-to-site-btn:hover {
+  background: var(--color-gold);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .day-of-title {
+    font-size: 2.5rem;
+  }
+  
+  .day-of-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .main-card {
+    grid-column: span 1;
+  }
+
+  .full-width-mobile {
+    grid-column: span 1;
+  }
+  
+  .day-of-card {
+    padding: 2rem 1.5rem;
+  }
+}

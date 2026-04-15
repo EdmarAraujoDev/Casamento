@@ -5,13 +5,25 @@ import DetalhesEvento from './components/DetalhesEvento';
 import Presentes from './components/Presentes';
 import RSVP from './components/RSVP';
 import AdminConvidados from './components/AdminConvidados';
+import WeddingDayView from './components/WeddingDayView';
 import './index.css';
 
 function App() {
   const path = window.location.pathname;
+  const queryParams = new URLSearchParams(window.location.search);
+  const isTestToday = queryParams.get('hoje') === 'true';
+  const [showFullSite, setShowFullSite] = React.useState(false);
+
+  const WEDDING_DATE = "2026-09-14";
+  const today = new Date().toISOString().split('T')[0];
+  const isWeddingDay = today === WEDDING_DATE || isTestToday;
 
   if (path === '/admin-convidados') {
     return <AdminConvidados />;
+  }
+
+  if (isWeddingDay && !showFullSite) {
+    return <WeddingDayView onShowFullSite={() => setShowFullSite(true)} />;
   }
 
   return (

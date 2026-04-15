@@ -10,7 +10,8 @@ const Presentes = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(pixKey);
     setCopied(true);
-    setTimeout(() => setCopied(false), 3000);
+    // Deixa a mensagem por 8 segundos para dar tempo de ler tranquilamente
+    setTimeout(() => setCopied(false), 8000);
   };
 
   return (
@@ -58,6 +59,28 @@ const Presentes = () => {
               )}
             </div>
           </div>
+
+          <AnimatePresence>
+            {copied && (
+              <motion.div 
+                className="pix-gratitude-msg"
+                initial={{ opacity: 0, height: 0, y: -10 }}
+                animate={{ opacity: 1, height: 'auto', y: 0 }}
+                exit={{ opacity: 0, height: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="gratitude-content">
+                  <p>
+                    <strong>Já estamos de olho aguardando a sua surpresa! 🎉</strong>
+                  </p>
+                  <p>
+                    Cada contribuição será imensamente celebrada e registrada no nosso mural do coração. 
+                    Saber que você está nos ajudando a realizar esse sonho não tem preço. Muito obrigado!
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>
