@@ -154,3 +154,48 @@
     padding: 1.5rem;
   }
 }
+
+.rsvp-pix-suggestion {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: rgba(197, 168, 128, 0.05);
+  border: 1px dashed rgba(197, 168, 128, 0.3);
+  border-radius: 8px;
+}
+
+.pix-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(197, 168, 128, 0.2), transparent);
+  margin-bottom: 1.5rem;
+}
+
+.pix-suggestion-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+}
+
+.btn-pix-copy {
+  background: white;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.btn-pix-copy:hover {
+  background: var(--color-gold);
+  color: white;
+  box-shadow: 0 4px 15px rgba(197, 168, 128, 0.2);
+}
+

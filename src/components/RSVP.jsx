@@ -12,6 +12,7 @@ const RSVP = () => {
   const [step, setStep] = useState(1); // 1: busca, 2: achado e opção, 3: confirmado/recusado
   const [acompanhantes, setAcompanhantes] = useState(0);
   const [showPadrinhos, setShowPadrinhos] = useState(false);
+  const [pixCopied, setPixCopied] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -181,6 +182,36 @@ const RSVP = () => {
                 <p className="success-subtext">
                   Suas preferências foram registradas com sucesso.
                 </p>
+
+                {guestInfo.confirmado && (
+                  <motion.div 
+                    className="rsvp-pix-suggestion"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    <div className="pix-divider"></div>
+                    <p className="pix-suggestion-text">
+                      Sua presença é o nosso maior presente! 🎁 <br/>
+                      Mas se desejar nos ajudar a construir nossa vida juntos, 
+                      você pode contribuir com um PIX de qualquer valor:
+                    </p>
+                    <button 
+                      className="btn-pix-copy"
+                      onClick={() => {
+                        navigator.clipboard.writeText("sua-chave-pix@email.com");
+                        setPixCopied(true);
+                        setTimeout(() => setPixCopied(false), 3000);
+                      }}
+                    >
+                      {pixCopied ? (
+                        <><CheckCircle2 size={16} /> Chave Copiada!</>
+                      ) : (
+                        <><Heart size={16} /> Copiar Chave PIX</>
+                      )}
+                    </button>
+                  </motion.div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
