@@ -6,6 +6,8 @@ import Presentes from './components/Presentes';
 import RSVP from './components/RSVP';
 import AdminConvidados from './components/AdminConvidados';
 import WeddingDayView from './components/WeddingDayView';
+import Galeria from './components/Galeria';
+import MuralRecados from './components/MuralRecados';
 import './index.css';
 
 function App() {
@@ -32,7 +34,9 @@ function App() {
       <HeroSection />
       <NossaHistoria />
       <DetalhesEvento />
+      <Galeria />
       <Presentes />
+      <MuralRecados />
       <RSVP />
       
       <footer style={{

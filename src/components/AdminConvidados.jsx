@@ -1,136 +1,238 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-import { Users, CheckCircle2, XCircle, Clock } from 'lucide-react';
+import { Users, CheckCircle2, XCircle, Clock, Plus, Trash2, MessageSquare, Check, Edit2 } from 'lucide-react';
 import './AdminConvidados.css';
 
 const AdminConvidados = () => {
   const [convidados, setConvidados] = useState([]);
+  const [recados, setRecados] = useState([]);
+  const [activeTab, setActiveTab] = useState('convidados');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  
+  // Form State
+  const [editingId, setEditingId] = useState(null);
+  const [formData, setFormData] = useState({
+    nome: '',
+    tipo: 'convidado',
+    mensagem: 'Estamos muito felizes em ter você conosco!',
+    codigo: ''
+  });
 
   useEffect(() => {
-    const fetchConvidados = async () => {
-      if (!supabase) {
-        setError('Supabase não configurado.');
-        setLoading(false);
-        return;
-      }
+    fetchData();
+  }, [activeTab]);
 
-      try {
-        const { data, error: fetchError } = await supabase
-          .from('convidados')
-          .select('*')
-          .order('nome', { ascending: true });
+  const fetchData = async () => {
+    setLoading(true);
+    if (activeTab === 'convidados') {
+      await fetchConvidados();
+    } else {
+      await fetchRecados();
+    }
+    setLoading(false);
+  };
 
-        if (fetchError) throw fetchError;
-        setConvidados(data || []);
-      } catch (err) {
-        setError('Erro ao carregar a lista de convidados.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchConvidados = async () => {
+    const { data, error: fetchError } = await supabase
+      .from('convidados')
+      .select('*')
+      .order('nome', { ascending: true });
+    if (fetchError) setError('Erro ao carregar convidados.');
+    else setConvidados(data || []);
+  };
 
+  const fetchRecados = async () => {
+    const { data, error: fetchError } = await supabase
+      .from('recados')
+      .select('*')
+      .order('criado_em', { ascending: false });
+    if (fetchError) setError('Erro ao carregar recados.');
+    else setRecados(data || []);
+  };
+
+  const generateCode = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
+  };
+
+  const handleSaveConvidado = async (e) => {
+    e.preventDefault();
+    const finalCode = formData.codigo.trim() || generateCode();
+    
+    const payload = { ...formData, codigo: finalCode.toUpperCase() };
+
+    if (editingId) {
+      await supabase.from('convidados').update(payload).eq('id', editingId);
+    } else {
+      await supabase.from('convidados').insert([payload]);
+    }
+
+    setShowModal(false);
+    setEditingId(null);
+    setFormData({ nome: '', tipo: 'convidado', mensagem: '', codigo: '' });
     fetchConvidados();
-  }, []);
+  };
 
-  const totalConvidados = convidados.length;
-  
-  // Calcula confirmados considerando que o convidado principal é 1 + acompanhantes
-  const confirmadosCount = convidados
-    .filter(c => c.confirmado === true)
-    .reduce((acc, curr) => acc + 1 + (curr.acompanhantes || 0), 0);
+  const deleteConvidado = async (id) => {
+    if (window.confirm('Tem certeza que deseja excluir este convidado?')) {
+      await supabase.from('convidados').delete().eq('id', id);
+      fetchConvidados();
+    }
+  };
 
-  const recusadosCount = convidados.filter(c => c.confirmado === false).length;
-  const pendentesCount = convidados.filter(c => c.confirmado === null).length;
+  const approveRecado = async (id) => {
+    await supabase.from('recados').update({ aprovado: true }).eq('id', id);
+    fetchRecados();
+  };
 
-  if (loading) {
-    return <div className="admin-loading">Carregando lista de convidados...</div>;
+  const deleteRecado = async (id) => {
+    if (window.confirm('Excluir este recado permanentemente?')) {
+      await supabase.from('recados').delete().eq('id', id);
+      fetchRecados();
+    }
+  };
+
+  if (loading && convidados.length === 0) {
+    return <div className="admin-loading">Carregando painel de controle...</div>;
   }
 
   return (
     <div className="admin-container">
-      <div className="admin-header">
-        <h1>Painel de Convidados</h1>
-        <p>Acompanhe quem já confirmou presença no casamento.</p>
+      <div className="admin-nav">
+        <button 
+          className={activeTab === 'convidados' ? 'active' : ''} 
+          onClick={() => setActiveTab('convidados')}
+        >
+          <Users size={18} /> Gestão de Convidados
+        </button>
+        <button 
+          className={activeTab === 'recados' ? 'active' : ''} 
+          onClick={() => setActiveTab('recados')}
+        >
+          <MessageSquare size={18} /> Moderação de Recados
+        </button>
       </div>
 
-      <div className="admin-stats">
-        <div className="stat-card">
-          <Users size={32} className="stat-icon text-gold" />
-          <div className="stat-info">
-            <h3>{totalConvidados}</h3>
-            <p>Total na Lista (Famílias/Indivíduos)</p>
+      {activeTab === 'convidados' ? (
+        <>
+          <div className="admin-actions">
+            <h1>Lista de Convidados</h1>
+            <button className="btn-primary" onClick={() => setShowModal(true)}>
+              <Plus size={18} /> Novo Convidado
+            </button>
           </div>
-        </div>
-        <div className="stat-card">
-          <CheckCircle2 size={32} className="stat-icon text-green" />
-          <div className="stat-info">
-            <h3>{confirmadosCount}</h3>
-            <p>Pessoas Confirmadas (Total com Acompanhantes)</p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <XCircle size={32} className="stat-icon text-red" />
-          <div className="stat-info">
-            <h3>{recusadosCount}</h3>
-            <p>Não poderão ir</p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <Clock size={32} className="stat-icon text-gray" />
-          <div className="stat-info">
-            <h3>{pendentesCount}</h3>
-            <p>Pendentes</p>
-          </div>
-        </div>
-      </div>
 
-      {error && <div className="admin-error">{error}</div>}
-
-      <div className="admin-table-wrapper">
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Código</th>
-              <th>Categoria</th>
-              <th>Status</th>
-              <th>Acomp.</th>
-              <th>Mensagem</th>
-            </tr>
-          </thead>
-          <tbody>
-            {convidados.map((convidado) => (
-              <tr key={convidado.id}>
-                <td className="font-bold">{convidado.nome}</td>
-                <td className="text-code">{convidado.codigo || '-'}</td>
-                <td className="text-sm">{convidado.tipo}</td>
-                <td>
-                  {convidado.confirmado === true && (
-                    <span className="status-badge status-yes"><CheckCircle2 size={16} /> Confirmado</span>
+          <div className="admin-table-wrapper">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Código</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {convidados.map(c => (
+                  <tr key={c.id}>
+                    <td>{c.nome}</td>
+                    <td className="text-code">{c.codigo}</td>
+                    <td>
+                      {c.confirmado === true ? <span className="status-yes">Sim</span> : 
+                       c.confirmado === false ? <span className="status-no">Não</span> : 'Pendente'}
+                    </td>
+                    <td className="actions-cell">
+                      <button onClick={() => {
+                        setEditingId(c.id);
+                        setFormData({ nome: c.nome, tipo: c.tipo, mensagem: c.mensagem, codigo: c.codigo });
+                        setShowModal(true);
+                      }}><Edit2 size={16} /></button>
+                      <button className="btn-del" onClick={() => deleteConvidado(c.id)}><Trash2 size={16} /></button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="admin-actions">
+            <h1>Moderação de Recados</h1>
+          </div>
+          <div className="recados-moderation-list">
+            {recados.map(r => (
+              <div key={r.id} className={`mod-card ${r.aprovado ? 'approved' : 'pending'}`}>
+                <div className="mod-info">
+                  <strong>{r.nome}</strong>
+                  <p>"{r.mensagem}"</p>
+                </div>
+                <div className="mod-actions">
+                  {!r.aprovado && (
+                    <button className="btn-approve" onClick={() => approveRecado(r.id)}>
+                      <Check size={18} /> Aprovar
+                    </button>
                   )}
-                  {convidado.confirmado === false && (
-                    <span className="status-badge status-no"><XCircle size={16} /> Recusado</span>
-                  )}
-                  {convidado.confirmado === null && (
-                    <span className="status-badge status-pending"><Clock size={16} /> Pendente</span>
-                  )}
-                </td>
-                <td>{convidado.confirmado ? convidado.acompanhantes || 0 : '-'}</td>
-                <td className="text-sm text-gray">{convidado.mensagem}</td>
-              </tr>
+                  <button className="btn-del" onClick={() => deleteRecado(r.id)}>
+                    <Trash2 size={18} /> Excluir
+                  </button>
+                </div>
+              </div>
             ))}
-            {convidados.length === 0 && (
-              <tr>
-                <td colSpan="4" className="text-center py-4">Nenhum convidado encontrado.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+          </div>
+        </>
+      )}
+
+      {/* Modal Convidado */}
+      {showModal && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal">
+            <h2>{editingId ? 'Editar Convidado' : 'Novo Convidado'}</h2>
+            <form onSubmit={handleSaveConvidado}>
+              <input 
+                type="text" 
+                placeholder="Nome Completo" 
+                value={formData.nome}
+                onChange={e => setFormData({...formData, nome: e.target.value})}
+                required 
+              />
+              <select 
+                value={formData.tipo}
+                onChange={e => setFormData({...formData, tipo: e.target.value})}
+              >
+                <option value="convidado">Convidado Comum</option>
+                <option value="madrinha">Madrinha</option>
+                <option value="padrinho">Padrinho</option>
+              </select>
+              <input 
+                type="text" 
+                placeholder="Código de 4 letras (ou deixe em branco)" 
+                value={formData.codigo}
+                onChange={e => setFormData({...formData, codigo: e.target.value})}
+                maxLength={4}
+              />
+              <textarea 
+                placeholder="Mensagem Personalizada" 
+                value={formData.mensagem}
+                onChange={e => setFormData({...formData, mensagem: e.target.value})}
+              />
+              <div className="modal-btns">
+                <button type="button" onClick={() => setShowModal(false)} className="btn-outline">Cancelar</button>
+                <button type="submit" className="btn-primary">Salvar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default AdminConvidados;
+
