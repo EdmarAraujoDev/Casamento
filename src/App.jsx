@@ -40,8 +40,8 @@ function App() {
       <NossaHistoria />
       <DetalhesEvento />
       <Presentes />
-      <MuralRecados />
       <RSVP />
+      <MuralRecados />
       
       <footer style={{
         textAlign: 'center',

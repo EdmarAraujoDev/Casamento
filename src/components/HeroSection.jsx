@@ -42,6 +42,13 @@ const HeroSection = ({ onOpenGallery }) => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  const scrollToRSVP = () => {
+    const rsvpSection = document.getElementById('rsvp');
+    if (rsvpSection) {
+      rsvpSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="hero">
       <div className="hero-bg">
@@ -57,6 +64,7 @@ const HeroSection = ({ onOpenGallery }) => {
         </video>
         <div className="hero-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%)' }}></div>
       </div>
+
 
       <motion.div 
         className="hero-content"
@@ -83,7 +91,16 @@ const HeroSection = ({ onOpenGallery }) => {
         
         <div className="hero-buttons">
           <motion.button 
-            className="btn-primary"
+            className="btn-primary rsvp-highlight"
+            onClick={scrollToRSVP}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Confirmar Presença
+          </motion.button>
+
+          <motion.button 
+            className="btn-outline"
             onClick={scrollToNext}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

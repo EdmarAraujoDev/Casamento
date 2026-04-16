@@ -152,6 +152,19 @@
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.rsvp-highlight {
+  background: var(--color-gold) !important;
+  color: white !important;
+  box-shadow: 0 0 30px rgba(197, 168, 128, 0.4) !important;
+  font-weight: 600 !important;
+}
+
+.rsvp-highlight:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 5px 40px rgba(197, 168, 128, 0.6) !important;
 }
 
 .gallery-trigger {
@@ -163,15 +176,26 @@
 }
 
 .gallery-trigger:hover {
-  background: var(--color-gold) !important;
+  background: rgba(197, 168, 128, 0.2) !important;
   color: white !important;
-  box-shadow: 0 0 20px rgba(197, 168, 128, 0.4);
+}
+
+@media (max-width: 768px) {
+  .hero-buttons {
+    gap: 1rem;
+    padding: 0 20px;
+  }
 }
 
 @media (max-width: 600px) {
   .hero-buttons {
     flex-direction: column;
-    gap: 1rem;
+    width: 100%;
+  }
+  .hero-buttons button {
+    width: 100%;
+    max-width: 280px;
   }
 }
+
 
