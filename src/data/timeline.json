@@ -1,23 +1,37 @@
 [
   {
     "id": 1,
-    "date": "2018",
-    "title": "Como tudo começou",
-    "description": "Nossos olhares se cruzaram em um dia que parecia comum, mas que mudaria nossas vidas para sempre.",
-    "image": "/gallery_1.png"
+    "date": "07/06/2024",
+    "title": "Primeiro Encontro",
+    "description": "Quando marcaram o seu primeiro encontro, veio aquele friozinho na barriga… Mas, ao se verem, tudo se acalmou. Seus olhos brilharam, os sorrisos se abriram. Então perceberam, aquele seria o início de uma linda história, uma escrita pelas mãos de Deus.",
+    "image": "/timeline/encontro.jpg"
   },
   {
     "id": 2,
-    "date": "2020",
-    "title": "O primeiro 'Eu te amo'",
-    "description": "Descobrimos que a vida ficava muito melhor quando compartilhada.",
-    "image": "/hero_couple.png"
+    "date": "12/06/2024",
+    "title": "Primeiro “eu te amo”",
+    "description": "Quando foi pedida em namoro, ele a deixou em casa… E foi ali que disse que a amava. Ela não demorou a retribuir. As palavras saíram levemente, e Deus confirmando, em seus corações, o que já estavam sentindo.",
+    "image": "/timeline/euteamo.jpg"
   },
   {
     "id": 3,
-    "date": "2023",
-    "title": "O pedido",
-    "description": "Com os corações acelerados e os olhos cheios de lágrimas, dissemos sim ao para sempre.",
-    "image": "/gallery_1.png"
+    "date": "2024",
+    "title": "Nossa Primeira Corrida",
+    "description": "Adrenalina pura e risadas garantidas! Nossa primeira corrida de Kart não foi apenas sobre velocidade, mas sobre como nos divertimos juntos em cada curva da vida. Um dia inesquecível de parceria e alegria.",
+    "image": "/timeline/corrida.jpg"
+  },
+  {
+    "id": 4,
+    "date": "2024",
+    "title": "Uma Viagem Inesquecível",
+    "description": "Explorar o mundo ao seu lado faz cada destino ser mágico. Nossa viagem foi um marco de cumplicidade, onde cada paisagem ficou mais bonita com o seu sorriso. Colecionando memórias pelo caminho.",
+    "image": "/timeline/viagem.jpg"
+  },
+  {
+    "id": 5,
+    "date": "Em breve",
+    "title": "O Grande Dia",
+    "description": "Estamos contando os segundos para o momento em que nossas vidas se tornarão uma só. O início de uma nova jornada, abençoada por Deus e celebrada com quem amamos. O melhor ainda está por vir!",
+    "image": "/timeline/casamento.jpg"
   }
 ]
