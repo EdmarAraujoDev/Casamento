@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Image as ImageIcon, X, Maximize2 } from 'lucide-react';
+import { Image as ImageIcon, X, Maximize2, ArrowLeft } from 'lucide-react';
 import galleryData from '../data/gallery.json';
 import './Galeria.css';
 
-const Galeria = () => {
+const Galeria = ({ onClose }) => {
   const [selectedImg, setSelectedImg] = useState(null);
 
   return (
-    <section id="galeria" className="section bg-sand">
+    <section id="galeria" className="section bg-sand gallery-view">
       <div className="container">
+        <motion.div 
+          className="gallery-back"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          <button onClick={onClose} className="btn-back">
+            <ArrowLeft size={20} /> Voltar para o Site
+          </button>
+        </motion.div>
+
         <motion.div
           className="galeria-header"
           initial={{ opacity: 0, y: 20 }}

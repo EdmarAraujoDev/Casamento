@@ -1,4 +1,35 @@
+.gallery-view {
+  min-height: 100vh;
+  padding-top: 40px;
+}
+
+.gallery-back {
+  margin-bottom: 2rem;
+}
+
+.btn-back {
+  background: white;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-serif);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.btn-back:hover {
+  background: var(--color-gold);
+  color: white;
+  transform: translateX(-5px);
+}
+
 .galeria-header {
+
   text-align: center;
   margin-bottom: 4rem;
   display: flex;

@@ -16,6 +16,7 @@ function App() {
   const isTestToday = queryParams.get('hoje') === 'true';
   const isAdmin = queryParams.get('admin') === 'true';
   const [showFullSite, setShowFullSite] = React.useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = React.useState(false);
 
   const WEDDING_DATE = "2026-09-14";
   const today = new Date().toISOString().split('T')[0];
@@ -25,16 +26,19 @@ function App() {
     return <AdminConvidados />;
   }
 
+  if (isGalleryOpen) {
+    return <Galeria onClose={() => setIsGalleryOpen(false)} />;
+  }
+
   if (isWeddingDay && !showFullSite) {
     return <WeddingDayView onShowFullSite={() => setShowFullSite(true)} />;
   }
 
   return (
     <div className="app">
-      <HeroSection />
+      <HeroSection onOpenGallery={() => setIsGalleryOpen(true)} />
       <NossaHistoria />
       <DetalhesEvento />
-      <Galeria />
       <Presentes />
       <MuralRecados />
       <RSVP />

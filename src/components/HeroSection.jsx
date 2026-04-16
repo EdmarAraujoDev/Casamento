@@ -4,7 +4,7 @@ import { Volume2, VolumeX, ChevronDown } from 'lucide-react';
 import Countdown from './Countdown';
 import './HeroSection.css';
 
-const HeroSection = () => {
+const HeroSection = ({ onOpenGallery }) => {
   const [isMuted, setIsMuted] = useState(true);
   const [audio] = useState(new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')); // Simulando música romântica
 
@@ -81,14 +81,25 @@ const HeroSection = () => {
         <Countdown targetDate="2026-09-14T16:00:00" />
         <p className="hero-subtitle">Celebre esse momento conosco</p>
         
-        <motion.button 
-          className="btn-primary"
-          onClick={scrollToNext}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Entrar na nossa história
-        </motion.button>
+        <div className="hero-buttons">
+          <motion.button 
+            className="btn-primary"
+            onClick={scrollToNext}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Nossa História
+          </motion.button>
+          
+          <motion.button 
+            className="btn-outline gallery-trigger"
+            onClick={onOpenGallery}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Ver Fotos
+          </motion.button>
+        </div>
       </motion.div>
 
       <div className="sound-control" onClick={toggleMute}>
