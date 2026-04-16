@@ -193,13 +193,14 @@ const RSVP = () => {
                     <div className="pix-divider"></div>
                     <p className="pix-suggestion-text">
                       Sua presença é o nosso maior presente! 🎁 <br/>
-                      Mas se desejar nos ajudar a construir nossa vida juntos, 
-                      você pode contribuir com um PIX de qualquer valor:
+                      Estamos construindo nosso novo lar e nossa Lua de Mel com muito carinho. 
+                      Caso queira nos abençoar com um mimo especial para essa jornada, 
+                      ficaremos imensamente gratos com sua contribuição via PIX:
                     </p>
                     <button 
                       className="btn-pix-copy"
                       onClick={() => {
-                        navigator.clipboard.writeText("sua-chave-pix@email.com");
+                        navigator.clipboard.writeText("doacao@isabelaeedmar.com.br");
                         setPixCopied(true);
                         setTimeout(() => setPixCopied(false), 3000);
                       }}
@@ -207,7 +208,7 @@ const RSVP = () => {
                       {pixCopied ? (
                         <><CheckCircle2 size={16} /> Chave Copiada!</>
                       ) : (
-                        <><Heart size={16} /> Copiar Chave PIX</>
+                        <><Heart size={16} /> Contribuir com Mimo (PIX)</>
                       )}
                     </button>
                   </motion.div>

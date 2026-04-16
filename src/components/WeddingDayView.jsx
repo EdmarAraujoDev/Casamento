@@ -6,7 +6,7 @@ import './WeddingDayView.css';
 const WeddingDayView = ({ onShowFullSite }) => {
   const groomWhatsApp = "5531993824991";
   const mapLink = "https://www.google.com/maps/dir/?api=1&destination=Rua+Exemplo+das+Flores,123";
-  const pixKey = "sua-chave-pix@email.com";
+  const pixKey = "doacao@isabelaeedmar.com.br";
   
   const [copied, setCopied] = useState(false);
 

@@ -5,7 +5,7 @@ import './Presentes.css';
 
 const Presentes = () => {
   const [copied, setCopied] = useState(false);
-  const pixKey = "sua-chave-pix@email.com"; // Substituir depois
+  const pixKey = "doacao@isabelaeedmar.com.br";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(pixKey);
